@@ -1,9 +1,17 @@
-- study the free part of the book in https://discoverthreejs.com/. Now: https://discoverthreejs.com/book/first-steps/
-- Look for other useful stuff in https://discoverthreejs.com/.
-- Look for other useful stuff in  https://threejs.org/.
+Main to-do:
+- draw the axes and the cuboid's limits.
+- manage to draw the graph of a simple (hard-coded) function with lines or squares. (Experiment both.)
 - make a simple proof of concept that only draws spheres. (Or cubes, actually. Fewer vertices.)
 - make sure you've implemented everything you've considered in the observations below.
 - make sure you've implemented everything you told Torchelsen you were going to implement.
+- some performance considerations:
+    - using BufferGeometry is very often said to result in better performance than using Geometry. So you'll probably want to use that everywhere if performance is a bother at all.
+    
+
+Studying to-do (or, the to-do to fall back to when you have no idea how to do the stuff in the other one):
+- study the free part of the book in https://discoverthreejs.com/. Now: https://discoverthreejs.com/book/first-steps/
+- Look for other useful stuff in https://discoverthreejs.com/.
+- Look for other useful stuff in  https://threejs.org/.
 
 -----------
 
