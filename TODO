@@ -1,0 +1,11 @@
+- study the free part of the book in https://discoverthreejs.com/.
+- Look for other useful stuff in https://discoverthreejs.com/.
+- Look for other useful stuff in  https://threejs.org/.
+- make a simple proof of concept that only draws spheres. (Or cubes, actually. Fewer vertices.)
+- make sure you've implemented everything you've considered in the observations below.
+- make sure you've implemented everything you told Torchelsen you were going to implement.
+
+-----------
+
+Some arbitrary observations:
+- optimally, points from each Z layer would be calculated indivisually and then points from each Z layer would be connected.
