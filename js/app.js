@@ -6,8 +6,8 @@ const BACKGROUND_COLOR = "black";
 const AXES_COLOR = "white";
 const GRAPH_COLOR = "red";
 const CAMERA_POSITION = [0, 5, 10];
-// width, height and depth of the cuboid that contains the graph
-const WINDOW_DIMENSIONS = [5, 5, 1];
+// width and depth of the cuboid that contains the graph
+const WINDOW_DIMENSIONS = [5, 1];
 const WINDOW_XZ_RESOLUTION = [40, 1];
 const GRAPH_MORPH_TIME = 0.5;   // in seconds
 
@@ -82,7 +82,7 @@ function updateScene(time) {
     surface.geometry.dispose();
     let paramFunction = function(u, v, position) {
         let x = -WINDOW_DIMENSIONS[0]/2 + u*(WINDOW_DIMENSIONS[0]);
-        let z = -WINDOW_DIMENSIONS[2]/2 + v*(WINDOW_DIMENSIONS[2]);
+        let z = -WINDOW_DIMENSIONS[1]/2 + v*(WINDOW_DIMENSIONS[1]);
         
         let y = (1-progress)*updateScene.oldFunction(-x, z)
                 +  progress *updateScene.targetFunction(-x, z);
