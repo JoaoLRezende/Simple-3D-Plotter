@@ -10,7 +10,6 @@ const CAMERA_POSITION = [0, 5, 10];
 const WINDOW_DIMENSIONS = [5, 5, 1];
 const WINDOW_XZ_RESOLUTION = [40, 1];
 const GRAPH_MORPH_TIME = 0.5;   // in seconds
-const testFunction = function(x, z) { return Math.sin(x) };
 
 let scene, camera, renderer;
 let surface;
@@ -85,8 +84,8 @@ function updateScene(time) {
         let x = -WINDOW_DIMENSIONS[0]/2 + u*(WINDOW_DIMENSIONS[0]);
         let z = -WINDOW_DIMENSIONS[2]/2 + v*(WINDOW_DIMENSIONS[2]);
         
-        let y = (1-progress)*updateScene.oldFunction(x, z)
-                +  progress *updateScene.targetFunction(x, z);
+        let y = (1-progress)*updateScene.oldFunction(-x, z)
+                +  progress *updateScene.targetFunction(-x, z);
 
         position.set(x, -y, z);
     };
