@@ -45,15 +45,7 @@ function init() {
 }
 
 function createParametricSurface() {
-    let paramFunction = function(u, v, position) {
-        let x = -WINDOW_DIMENSIONS[0]/2 + u*(WINDOW_DIMENSIONS[0]);
-        let z = -WINDOW_DIMENSIONS[2]/2 + v*(WINDOW_DIMENSIONS[2]);
-        
-        let y = testFunction(x, z);
-
-        position.set(x, -y, z);
-    };
-    let geometry = new THREE.ParametricBufferGeometry(paramFunction, ...WINDOW_XZ_RESOLUTION);
+    let geometry = new THREE.PlaneBufferGeometry(WINDOW_XZ_RESOLUTION);
     let material = new THREE.MeshBasicMaterial({
         color: GRAPH_COLOR
     });
