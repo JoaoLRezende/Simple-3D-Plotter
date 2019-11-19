@@ -9,6 +9,7 @@ const CAMERA_POSITION = [0, 5, 10];
 // width, height and depth of the cuboid that contains the graph
 const WINDOW_DIMENSIONS = [5, 5, 1];
 const WINDOW_XZ_RESOLUTION = [40, 1];
+const GRAPH_MORPH_TIME = 0.5;   // in seconds
 const testFunction = function(x, z) { return Math.sin(x) };
 
 let scene, camera, renderer;
@@ -32,8 +33,6 @@ function init() {
     camera.position.set(...CAMERA_POSITION);
     camera.lookAt(0, 0, 0);
 
-    createParametricSurface();
-
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(canvasDiv.clientWidth, canvasDiv.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -41,10 +40,14 @@ function init() {
     // Add the created canvas element to the page.
     canvasDiv.appendChild(renderer.domElement);
 
-    requestAnimationFrame(updateScene);
+    createParametricSurface();
+    drawNewFunction((x, z) => 0);
 }
 
 function createParametricSurface() {
+    updateScene.oldFunction = function(x, z) {return 0};
+    updateScene.targetFunction = updateScene.oldFunction;
+
     let geometry = new THREE.PlaneBufferGeometry(WINDOW_XZ_RESOLUTION);
     let material = new THREE.MeshBasicMaterial({
         color: GRAPH_COLOR
@@ -54,22 +57,43 @@ function createParametricSurface() {
     scene.add(surface);
 }
 
+function drawNewFunction(f) {
+    updateScene.newFunction = f;
+    requestAnimationFrame(updateScene);
+}
+
 function updateScene(time) {
     time /= 1000;
-    let targetTime = 3;
-    let progress = Math.min(time / targetTime, 1);
+
+    /* If updateScene.newFunction is not null, then it holds
+     * a function that shall become the new target function. Start
+     * morphing the graph towards it.
+     */
+    if (updateScene.newFunction) {
+        updateScene.oldFunction = updateScene.targetFunction;
+        updateScene.targetFunction = updateScene.newFunction;
+        updateScene.morphStartTime = time;
+        updateScene.newFunction = null;
+    }
+
+    let progress = (time - updateScene.morphStartTime) / GRAPH_MORPH_TIME;
+    if (progress >= 1)
+        progress = 1;
+
+    surface.geometry.dispose();
     let paramFunction = function(u, v, position) {
         let x = -WINDOW_DIMENSIONS[0]/2 + u*(WINDOW_DIMENSIONS[0]);
         let z = -WINDOW_DIMENSIONS[2]/2 + v*(WINDOW_DIMENSIONS[2]);
         
-        let y = progress * testFunction(x, z);
+        let y = (1-progress)*updateScene.oldFunction(x, z)
+                +  progress *updateScene.targetFunction(x, z);
 
         position.set(x, -y, z);
     };
-    surface.geometry.dispose();
     surface.geometry = new THREE.ParametricBufferGeometry(paramFunction, ...WINDOW_XZ_RESOLUTION);
 
-
     renderer.render(scene, camera);
-    requestAnimationFrame(updateScene);
+
+    if (progress < 1)
+        requestAnimationFrame(updateScene);
 }
