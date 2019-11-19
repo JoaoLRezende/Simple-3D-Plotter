@@ -1,14 +1,14 @@
 "use strict";
 
 // Configurable constants.   TODO: move these to a separate module and reorganize them there.
-const FIELD_OF_VIEW = 45;   // in degrees
+const FIELD_OF_VIEW = 90;   // in degrees
 const BACKGROUND_COLOR = "black";
 const AXES_COLOR = "white";
 const GRAPH_COLOR = "red";
 const CAMERA_POSITION = [0, 5, 10];
 // width and depth of the cuboid that contains the graph
-const WINDOW_DIMENSIONS = [5, 1];
-const WINDOW_XZ_RESOLUTION = [40, 1];
+const WINDOW_DIMENSIONS = [5, 5];
+const WINDOW_XZ_RESOLUTION = [20, 20];
 const GRAPH_MORPH_TIME = 0.5;   // in seconds
 
 let scene, camera, renderer;
@@ -85,8 +85,8 @@ function updateScene(time) {
         let x = -WINDOW_DIMENSIONS[0]/2 + u*(WINDOW_DIMENSIONS[0]);
         let z = -WINDOW_DIMENSIONS[1]/2 + v*(WINDOW_DIMENSIONS[1]);
         
-        let y = (1-progress)*updateScene.oldFunction(-x, z)
-                +  progress *updateScene.targetFunction(-x, z);
+        let y = (1-progress)*updateScene.oldFunction(-x, -z)
+                +  progress *updateScene.targetFunction(-x, -z);
 
         position.set(x, -y, z);
     };
