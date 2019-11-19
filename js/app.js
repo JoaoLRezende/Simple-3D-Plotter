@@ -39,6 +39,8 @@ function init() {
     // Add the created canvas element to the page.
     canvasDiv.appendChild(renderer.domElement);
 
+    let controls = new THREE.OrbitControls(camera, canvasDiv);
+
     createParametricSurface();
     drawNewFunction((x, z) => 0);
 }
