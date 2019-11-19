@@ -12,7 +12,7 @@ const WINDOW_XZ_RESOLUTION = [40, 1];
 const testFunction = function(x, z) { return Math.sin(x) };
 
 let scene, camera, renderer;
-let surface;
+let surfaceMaterial, surface;
 
 init();
 
@@ -54,7 +54,7 @@ function createParametricSurface() {
         position.set(x, -y, z);
         console.log("resulting position:", position);
     };
-    let geometry = new THREE.ParametricGeometry(paramFunction, ...WINDOW_XZ_RESOLUTION);
+    let geometry = new THREE.ParametricBufferGeometry(paramFunction, ...WINDOW_XZ_RESOLUTION);
     let material = new THREE.MeshBasicMaterial({
         color: GRAPH_COLOR
     });
