@@ -39,7 +39,8 @@ function init() {
     // Add the created canvas element to the page.
     canvasDiv.appendChild(renderer.domElement);
 
-    let controls = new THREE.OrbitControls(camera, canvasDiv);
+    let cameraControls = new THREE.OrbitControls(camera, canvasDiv);
+    cameraControls.maxPolarAngle = Math.PI/3;
 
     createParametricSurface();
     drawNewFunction((x, z) => 0);
@@ -77,9 +78,7 @@ function updateScene(time) {
         updateScene.newFunction = null;
     }
 
-    let progress = (time - updateScene.morphStartTime) / GRAPH_MORPH_TIME;
-    if (progress >= 1)
-        progress = 1;
+    let progress = Math.min(1, (time - updateScene.morphStartTime) / GRAPH_MORPH_TIME);
 
     surface.geometry.dispose();
     let paramFunction = function(u, v, position) {
@@ -95,6 +94,5 @@ function updateScene(time) {
 
     renderer.render(scene, camera);
 
-    if (progress < 1)
-        requestAnimationFrame(updateScene);
+    requestAnimationFrame(updateScene);
 }
