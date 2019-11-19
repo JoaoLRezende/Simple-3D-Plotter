@@ -12,7 +12,7 @@ const WINDOW_XZ_RESOLUTION = [40, 1];
 const testFunction = function(x, z) { return Math.sin(x) };
 
 let scene, camera, renderer;
-let surfaceMaterial, surface;
+let surface;
 
 init();
 
@@ -52,7 +52,6 @@ function createParametricSurface() {
         let y = testFunction(x, z);
 
         position.set(x, -y, z);
-        console.log("resulting position:", position);
     };
     let geometry = new THREE.ParametricBufferGeometry(paramFunction, ...WINDOW_XZ_RESOLUTION);
     let material = new THREE.MeshBasicMaterial({
@@ -65,6 +64,18 @@ function createParametricSurface() {
 
 function updateScene(time) {
     time /= 1000;
+    let targetTime = 3;
+    let progress = Math.min(time / targetTime, 1);
+    let paramFunction = function(u, v, position) {
+        let x = -WINDOW_DIMENSIONS[0]/2 + u*(WINDOW_DIMENSIONS[0]);
+        let z = -WINDOW_DIMENSIONS[2]/2 + v*(WINDOW_DIMENSIONS[2]);
+        
+        let y = progress * testFunction(x, z);
+
+        position.set(x, -y, z);
+    };
+    surface.geometry.dispose();
+    surface.geometry = new THREE.ParametricBufferGeometry(paramFunction, ...WINDOW_XZ_RESOLUTION);
 
 
     renderer.render(scene, camera);
