@@ -7,7 +7,7 @@ const GRAPH_COLOR = "red";
 const CAMERA_POSITION = [0, 5, 10];
 
 // width and depth of the cuboid that contains the graph
-const WINDOW_DIMENSIONS = [50, 50];
+const WINDOW_DIMENSIONS = [10, 10];
 
 const WINDOW_XZ_RESOLUTION = [40, 40];
 
