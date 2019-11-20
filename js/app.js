@@ -40,6 +40,8 @@ function init() {
 
     let cameraControls = new THREE.OrbitControls(camera, canvasDiv);
     cameraControls.maxPolarAngle = Math.PI/3;
+    canvasDiv.addEventListener("mousedown", onMouseDown);
+    canvasDiv.addEventListener("mouseup", onMouseUp);
 
     createParametricSurface();
     drawNewFunction({target : {value: "0"}});
@@ -107,24 +109,20 @@ function updateScene(time) {
         requestAnimationFrame(updateScene);
 }
 
-function onClick(event) {
+
+function onMouseDown(event) {
     /*
      * If the user has clicked the screen, they might be trying to
      * move the camera around; so we'll start updating the screen
      * to let them see the sweet camera movements they crave.
-     * (Unfortunately, this gets called _after_ they press and stop pressing
-     * their right mouse button, which results in some unexpected behavior
-     * when the user first clicks on the screen.)
      */
     keepRedrawing = true;
     requestAnimationFrame(updateScene);
 };
 
-function onMouseOut(event) {
-    /* If the user has moved their cursor away from the canvas, then they
+function onMouseUp(event) {
+    /* If the user has released their right mouse button, then they
      * aren't trying to move the camera anymore. Stop updating the screen.
-     * (It would be preferable to do this when they let go of their right mouse
-     * button, but I don't know how to do that.)
      */
     keepRedrawing = false;
 }
