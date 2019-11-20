@@ -2,7 +2,7 @@
 
 let scene, camera, renderer;
 let surface;
-let keepRedrawing;
+let keepRedrawing = true;
 
 function init() {
     const canvasDiv = document.querySelector("#canvas-div");
@@ -46,8 +46,6 @@ function init() {
              */
             keepRedrawing = false;
         });
-    } else {
-        keepRedrawing = true;
     }
 
     createWindowEdges();
