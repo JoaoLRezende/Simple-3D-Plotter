@@ -10,10 +10,11 @@ const CAMERA_POSITION = [0, 5, 10];
 const WINDOW_DIMENSIONS = [10, 10];
 const WINDOW_XZ_RESOLUTION = [40, 40];
 const GRAPH_MORPH_TIME = 0.5;   // in seconds
+const AVOID_USELESS_REDRAWING = true;   // messes up zooming but saves energy
 
 let scene, camera, renderer;
 let surface;
-let keepRedrawing = false;
+let keepRedrawing;
 
 function init() {
     const canvasDiv = document.querySelector("#canvas-div");
@@ -40,8 +41,13 @@ function init() {
 
     let cameraControls = new THREE.OrbitControls(camera, canvasDiv);
     cameraControls.maxPolarAngle = Math.PI/3;
-    canvasDiv.addEventListener("mousedown", onMouseDown);
-    canvasDiv.addEventListener("mouseup", onMouseUp);
+    if (AVOID_USELESS_REDRAWING) {
+        canvasDiv.addEventListener("mousedown", onMouseDown);
+        canvasDiv.addEventListener("mouseup", onMouseUp);
+        keepRedrawing = false;
+    } else {
+        keepRedrawing = true;
+    }
 
     createParametricSurface();
     drawNewFunction({target : {value: "0"}});
