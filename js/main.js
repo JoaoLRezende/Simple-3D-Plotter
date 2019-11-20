@@ -42,14 +42,13 @@ function init() {
 }
 
 function createWindowEdges() {
-    let parallelepipedGeometry = new THREE.BoxBufferGeometry(
-        WINDOW_DIMENSIONS[0],
-        30,
-        WINDOW_DIMENSIONS[1]);
-    let edgesGeometry = new THREE.EdgesGeometry(parallelepipedGeometry);
+    let rectangleGeometry =
+                        new THREE.PlaneBufferGeometry(...WINDOW_DIMENSIONS);
+    let edgesGeometry = new THREE.EdgesGeometry(rectangleGeometry);
     let material = new THREE.LineBasicMaterial({color : AXES_COLOR});
-    let parralelepiped = new THREE.LineSegments(edgesGeometry, material);
-    scene.add(parralelepiped);
+    let rectangle = new THREE.LineSegments(edgesGeometry, material);
+    rectangle.rotation.x = Math.PI / 2;
+    scene.add(rectangle);
 }
 
 function createParametricSurface() {

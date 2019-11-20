@@ -4,7 +4,7 @@ const BACKGROUND_COLOR = "black";
 const AXES_COLOR = "white";
 const GRAPH_COLOR = "red";
 
-const CAMERA_POSITION = [0, 5, 10];
+const CAMERA_POSITION = [0, 3, 10];
 
 // width and depth of the cuboid that contains the graph
 const WINDOW_DIMENSIONS = [10, 10];
