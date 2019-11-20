@@ -14,7 +14,6 @@ const GRAPH_MORPH_TIME = 0.5;   // in seconds
 let scene, camera, renderer;
 let surface;
 
-init();
 
 function init() {
     const canvasDiv = document.querySelector("#canvas-div");
@@ -43,7 +42,7 @@ function init() {
     cameraControls.maxPolarAngle = Math.PI/3;
 
     createParametricSurface();
-    drawNewFunction((x, z) => 0);
+    drawNewFunction({target : {value: "0"}});
 }
 
 function createParametricSurface() {
@@ -60,7 +59,16 @@ function createParametricSurface() {
     scene.add(surface);
 }
 
-function drawNewFunction(f) {
+function drawNewFunction(e) {
+    let f;
+
+    try {
+        f = eval("(x,z) => (" + e.target.value + ")");
+    } catch (err) {
+        console.log(err);
+        return;
+    }
+    
     updateScene.newFunction = f;
     requestAnimationFrame(updateScene);
 }

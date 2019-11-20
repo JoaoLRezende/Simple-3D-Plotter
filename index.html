@@ -16,13 +16,17 @@
 
   </head>
 
-  <body>
+  <body onload="init()">
 
+    <script src="js/app.js"></script>
+
+    <input type="text" id="function-box"
+                       onchange="drawNewFunction(event)"
+                       placeholder="f(x, z)">
+  
     <div id="canvas-div">
       <!-- This div will hold the canvas created by three.js. -->
     </div>
-
-    <script src="js/app.js"></script>
 
   </body>
 
