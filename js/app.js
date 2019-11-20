@@ -7,8 +7,8 @@ const AXES_COLOR = "white";
 const GRAPH_COLOR = "red";
 const CAMERA_POSITION = [0, 5, 10];
 // width and depth of the cuboid that contains the graph
-const WINDOW_DIMENSIONS = [5, 5];
-const WINDOW_XZ_RESOLUTION = [20, 20];
+const WINDOW_DIMENSIONS = [10, 10];
+const WINDOW_XZ_RESOLUTION = [40, 40];
 const GRAPH_MORPH_TIME = 0.5;   // in seconds
 
 let scene, camera, renderer;
@@ -51,10 +51,11 @@ function createParametricSurface() {
     updateScene.targetFunction = updateScene.oldFunction;
 
     let geometry = new THREE.PlaneBufferGeometry(WINDOW_XZ_RESOLUTION);
+    geometry = new THREE.WireframeGeometry(geometry);   // temp
     let material = new THREE.MeshBasicMaterial({
         color: GRAPH_COLOR
     });
-    surface = new THREE.Mesh(geometry, material);
+    surface = new THREE.LineSegments(geometry, material);   // temporarily using LineSegments instead of Mesh, for showing depth
     surface.rotation.set(-Math.PI, -Math.PI, 0);
     scene.add(surface);
 }
