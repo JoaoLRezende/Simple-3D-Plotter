@@ -28,7 +28,6 @@ function init() {
     canvasDiv.appendChild(renderer.domElement);
 
     let cameraControls = new THREE.OrbitControls(camera, canvasDiv);
-    cameraControls.maxPolarAngle = Math.PI/3;
     if (AVOID_USELESS_REDRAWING) {
         canvasDiv.addEventListener("mousedown", onMouseDown);
         canvasDiv.addEventListener("mouseup", onMouseUp);
@@ -37,8 +36,20 @@ function init() {
         keepRedrawing = true;
     }
 
+    createWindowEdges();
     createParametricSurface();
     drawNewFunction({target : {value: "0"}});
+}
+
+function createWindowEdges() {
+    let parallelepipedGeometry = new THREE.BoxBufferGeometry(
+        WINDOW_DIMENSIONS[0],
+        30,
+        WINDOW_DIMENSIONS[1]);
+    let edgesGeometry = new THREE.EdgesGeometry(parallelepipedGeometry);
+    let material = new THREE.LineBasicMaterial({color : AXES_COLOR});
+    let parralelepiped = new THREE.LineSegments(edgesGeometry, material);
+    scene.add(parralelepiped);
 }
 
 function createParametricSurface() {
