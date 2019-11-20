@@ -29,9 +29,23 @@ function init() {
 
     let cameraControls = new THREE.OrbitControls(camera, canvasDiv);
     if (AVOID_USELESS_REDRAWING) {
-        canvasDiv.addEventListener("mousedown", onMouseDown);
-        canvasDiv.addEventListener("mouseup", onMouseUp);
         keepRedrawing = false;
+        
+        canvasDiv.addEventListener("mousedown", function() {
+            /*
+             * If the user has clicked the screen, they might be trying to
+             * move the camera around; so we'll start updating the screen
+             * to let them see the sweet camera movements they crave.
+             */
+            keepRedrawing = true;
+            requestAnimationFrame(updateScene);
+        });
+        canvasDiv.addEventListener("mouseup", function() {
+            /* If the user has released their right mouse button, then they
+             * aren't trying to move the camera anymore. Stop updating the screen.
+             */
+            keepRedrawing = false;
+        });
     } else {
         keepRedrawing = true;
     }
@@ -111,22 +125,4 @@ function updateScene(time) {
 
     if (progress < 1 || keepRedrawing)
         requestAnimationFrame(updateScene);
-}
-
-
-function onMouseDown(event) {
-    /*
-     * If the user has clicked the screen, they might be trying to
-     * move the camera around; so we'll start updating the screen
-     * to let them see the sweet camera movements they crave.
-     */
-    keepRedrawing = true;
-    requestAnimationFrame(updateScene);
-};
-
-function onMouseUp(event) {
-    /* If the user has released their right mouse button, then they
-     * aren't trying to move the camera anymore. Stop updating the screen.
-     */
-    keepRedrawing = false;
 }
