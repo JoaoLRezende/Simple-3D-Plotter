@@ -21,6 +21,8 @@ function updateScene(time) {
 
     let progress = Math.min(1, (time - updateScene.morphStartTime) / GRAPH_MORPH_TIME);
 
+    if (progress == 1) updateScene.oldFunction = (x, z, t) => 0;
+
     surface.geometry.dispose();
     let paramFunction = function(u, v, position) {
         let x = -WINDOW_DIMENSIONS[0]/2 + u*(WINDOW_DIMENSIONS[0]);
