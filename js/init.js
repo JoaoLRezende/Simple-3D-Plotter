@@ -11,6 +11,8 @@ let surface;
 let keepRedrawing = true;
 
 function init() {
+    document.querySelector("#function-box").focus();
+
     const canvasDiv = document.querySelector("#canvas-div");
 
     scene = new THREE.Scene();
