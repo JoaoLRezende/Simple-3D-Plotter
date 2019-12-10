@@ -2,6 +2,12 @@
 
 let scene, camera, renderer;
 let surface;
+
+/* keepRedrawing is true when, and only when, the user is
+ * pressing down the mouse's left button, which means they might
+ * be trying to move the camera. In that case, we keep updating
+ * the screen even if not in the middle of a transition.
+ */
 let keepRedrawing = true;
 
 function init() {
@@ -72,7 +78,7 @@ function createParametricSurface() {
     let material = new THREE.MeshBasicMaterial({
         color: GRAPH_COLOR
     });
-    surface = new THREE.LineSegments(geometry, material);   // temporarily using LineSegments instead of Mesh, for showing depth
+    surface = new THREE.LineSegments(geometry, material);   // temporarily using LineSegments instead of Mesh to show depth
     surface.rotation.set(-Math.PI, -Math.PI, 0);
     scene.add(surface);
 }
