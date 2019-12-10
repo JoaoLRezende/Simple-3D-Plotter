@@ -13,4 +13,4 @@ const WINDOW_XZ_RESOLUTION = [40, 40];
 
 const GRAPH_MORPH_TIME = 0.5;   // in seconds
 
-const AVOID_USELESS_REDRAWING = true;   // messes up zooming but saves energy
+const AVOID_USELESS_REDRAWING = false;   // messes up zooming but saves energy   // TODO: fix stuff then make this true again

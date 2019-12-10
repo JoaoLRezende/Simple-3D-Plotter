@@ -26,8 +26,8 @@ function updateScene(time) {
         let x = -WINDOW_DIMENSIONS[0]/2 + u*(WINDOW_DIMENSIONS[0]);
         let z = -WINDOW_DIMENSIONS[1]/2 + v*(WINDOW_DIMENSIONS[1]);
         
-        let y = (1-progress)*updateScene.oldFunction(-x, -z)
-                +  progress *updateScene.targetFunction(-x, -z);
+        let y = (1-progress)*updateScene.oldFunction(-x, -z, time)
+                +  progress *updateScene.targetFunction(-x, -z, time);
 
         position.set(x, -y, z);
     };
@@ -43,7 +43,7 @@ function drawNewFunction(e) {
     let f;
 
     try {
-        f = eval("(x,z) => (" + e.target.value + ")");
+        f = eval("(x, z, t) => (" + e.target.value + ")");
     } catch (err) {
         console.log(err);
         return;
