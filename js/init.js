@@ -71,7 +71,7 @@ function createWindowEdges() {
 
 function createParametricSurface() {
     updateScene.oldFunction = function(x, z) {return 0};
-    updateScene.targetFunction = updateScene.oldFunction;
+    updateScene.currentFunction = updateScene.oldFunction;
 
     let geometry = new THREE.PlaneBufferGeometry(WINDOW_XZ_RESOLUTION);
     geometry = new THREE.WireframeGeometry(geometry);   // temp

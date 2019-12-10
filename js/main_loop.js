@@ -13,8 +13,8 @@ function updateScene(time) {
      * morphing the graph towards it.
      */
     if (updateScene.newFunction) {
-        updateScene.oldFunction = updateScene.targetFunction;
-        updateScene.targetFunction = updateScene.newFunction;
+        updateScene.oldFunction = updateScene.currentFunction;
+        updateScene.currentFunction = updateScene.newFunction;
         updateScene.morphStartTime = time;
         updateScene.newFunction = null;
     }
@@ -27,16 +27,23 @@ function updateScene(time) {
         let z = -WINDOW_DIMENSIONS[1]/2 + v*(WINDOW_DIMENSIONS[1]);
         
         let y = (1-progress)*updateScene.oldFunction(-x, -z, time)
-                +  progress *updateScene.targetFunction(-x, -z, time);
+                +  progress *updateScene.currentFunction(-x, -z, time);
 
         position.set(x, -y, z);
     };
-    surface.geometry = new THREE.ParametricBufferGeometry(paramFunction, ...WINDOW_XZ_RESOLUTION);
+    surface.geometry = new THREE.ParametricBufferGeometry(
+        paramFunction,
+        ...WINDOW_XZ_RESOLUTION
+        );
 
     renderer.render(scene, camera);
 
-    if (progress < 1 || keepRedrawing)
+    if (progress < 1
+        || updateScene.currentFunction.isFunctionOfTime
+        || keepRedrawing)
         requestAnimationFrame(updateScene);
+    else
+        console.log("OK, dying now.");
 }
 
 function drawNewFunction(e) {
@@ -49,6 +56,22 @@ function drawNewFunction(e) {
         return;
     }
 
+    f.isFunctionOfTime = isFunctionOfTime(f);
     updateScene.newFunction = f;
     requestAnimationFrame(updateScene);
+}
+
+/* isFunctionOfTime determines, in a fairly retarded manner, whether
+ * a function changes with time.
+ */
+function isFunctionOfTime(f) {
+    if (f(4, 8, 0) == f(4, 8, 1)
+        && f(4, 8, 0) == f(4, 8, 1.1)
+        && f(9, -2, 9) == f(9, -2, 10.5)) {
+        console.log("Not a function of time.");
+        return false;
+    } else {
+        console.log("That's a function of time.");
+        return true;
+    }
 }
