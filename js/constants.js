@@ -18,7 +18,7 @@ const GROUND_COLOR = "blue";
 // width and depth of the cuboid that contains the graph
 const WINDOW_DIMENSIONS = [20, 10];
 
-const WINDOW_XZ_RESOLUTION = [100, 30];
+const WINDOW_XZ_RESOLUTION = [100, 50];
 
 const GRAPH_MORPH_TIME = 0.8;   // in seconds
 
