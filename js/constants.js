@@ -31,3 +31,5 @@ const TICK_LABEL_PARAMETERS = {
     curveSegments: 12
     // TODO: experiment with bevelling.
 };
+
+const SHOW_GRID = false; // is useless and looks terrible, but was in the specification lol

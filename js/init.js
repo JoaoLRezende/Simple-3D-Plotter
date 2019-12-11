@@ -57,7 +57,7 @@ function init() {
         });
     }
 
-    createGrid();
+    if (SHOW_GRID) createGrid();
     createLights();
     createWindowEdges();
     createParametricSurface();
@@ -73,6 +73,7 @@ function createGrid() {
         grid.rotation.x = Math.PI/2;
         scene.add(grid);
     }
+    requestAnimationFrame(updateScene);
 }
 
 function createLights() {
