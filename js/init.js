@@ -59,6 +59,7 @@ function init() {
 
     createWindowEdges();
     createParametricSurface();
+    createMarkers();
     drawNewFunction({target : {value: "0"}});
 }
 
@@ -86,3 +87,30 @@ function createParametricSurface() {
     scene.add(surface);
 }
 
+function createMarkers() {
+    let markerMaterial = new THREE.LineBasicMaterial({ color: AXES_COLOR });
+
+    /* Create the x axis' markers. */
+    let xMarkerGeometry = new THREE.Geometry();
+    xMarkerGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
+                                 new THREE.Vector3(0, -MARKER_LENGTH, 0));
+
+    let initialX = -Math.floor(WINDOW_DIMENSIONS[0]/2) + 1;
+    for (let x = initialX; x <= WINDOW_DIMENSIONS[0]/2 - 1; x += 1) {
+        let marker = new THREE.Line(xMarkerGeometry, markerMaterial);
+        marker.position.set(x, 0, WINDOW_DIMENSIONS[1]/2);
+        scene.add(marker);
+    }
+
+    /* Create the z axis' markers. */
+    let zMarkerGeometry = new THREE.Geometry();
+    zMarkerGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
+                                  new THREE.Vector3(0, -MARKER_LENGTH, 0));
+
+    let initialZ = -Math.floor(WINDOW_DIMENSIONS[1]/2) + 1;
+    for (let z = initialZ; z <= WINDOW_DIMENSIONS[1]/2 - 1; z += 1) {
+        let marker = new THREE.Line(zMarkerGeometry, markerMaterial);
+        marker.position.set(WINDOW_DIMENSIONS[0]/2, 0, z);
+        scene.add(marker);
+    }
+}
