@@ -28,4 +28,6 @@ a:hover{
 input {
   z-index: 1;
   position:fixed;
+  width: 100rem;
+  left: 0;
 }
