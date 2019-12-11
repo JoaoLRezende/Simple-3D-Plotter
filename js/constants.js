@@ -32,4 +32,6 @@ const TICK_LABEL_PARAMETERS = {
     // TODO: experiment with bevelling.
 };
 
+const PRESS_N_TO_CYCLE = false; // prevents you from typing into the input field manually, for some reason. :C
+
 const SHOW_GRID = false; // is useless and looks terrible, but was in the specification lol

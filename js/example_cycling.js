@@ -18,14 +18,16 @@ function switchToNextFunction() {
     drawNewFunction({target: {value: functionBox.value}});
 }
 
-window.addEventListener("keydown", function (event) {
-    if (event.defaultPrevented) {
-      return; // Do nothing if the event was already processed
-    }
-  
-    if (event.key == "n") {
-        switchToNextFunction();
-    }
-  
-    event.preventDefault();
-  }, true);
+function setUpCycling() {
+    window.addEventListener("keydown", function (event) {
+        if (event.defaultPrevented) {
+        return; // Do nothing if the event was already processed
+        }
+    
+        if (event.key == "n") {
+            switchToNextFunction();
+        }
+    
+        event.preventDefault();
+    }, true);
+}
