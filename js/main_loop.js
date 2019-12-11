@@ -32,7 +32,7 @@ function updateScene(time) {
         let y = progress * updateScene.currentFunction(-x, -z, time);
 
         if (progress < 1)
-            y += (1-progress)* updateScene.oldFunction(-x, -z, time);
+            y += (1-progress) * updateScene.oldFunction(-x, -z, time);
 
         position.set(x, -y, z);
     };
