@@ -57,11 +57,22 @@ function init() {
         });
     }
 
+    createGrid();
     createLights();
     createWindowEdges();
     createParametricSurface();
     createTicks();
     drawNewFunction({target : {value: "0"}});
+}
+
+function createGrid() {
+    let initialZ = WINDOW_DIMENSIONS[1]/2
+    for (let z  = initialZ; z >= -initialZ; z -= 1) {
+        let grid = new THREE.GridHelper(WINDOW_DIMENSIONS[0], 10);
+        grid.position.set(0, 0, z)
+        grid.rotation.x = Math.PI/2;
+        scene.add(grid);
+    }
 }
 
 function createLights() {
