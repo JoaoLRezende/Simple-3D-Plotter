@@ -6,7 +6,8 @@ let surface;
 /* keepRedrawing is true when, and only when, the user is
  * pressing down the mouse's left button, which means they might
  * be trying to move the camera. In that case, we keep updating
- * the screen even if not in the middle of a transition.
+ * the screen even if not in the middle of a transition nor
+ * drawing an animated function.
  */
 let keepRedrawing = true;
 
