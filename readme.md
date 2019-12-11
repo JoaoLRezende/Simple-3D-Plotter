@@ -11,3 +11,5 @@ Some examples of plottable functions:
 - `1/(15*((x/10)**2+(z/10)**2))+sin(10*((x/3)**2+(z/3)**2)+10*t)/10` (milkshake being sucked up into the sky)
 - `(x**2+z**2)**2 + sin(t*5)*5` (a phallic object moving up and down)
 - `Math.floor(x)` (stairs)
+
+You can cycle through those by pressing `n`.
