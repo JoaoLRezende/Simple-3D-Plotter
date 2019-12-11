@@ -57,10 +57,25 @@ function init() {
         });
     }
 
+    createLights();
     createWindowEdges();
     createParametricSurface();
     createTicks();
     drawNewFunction({target : {value: "0"}});
+}
+
+function createLights() {
+    let pointLight = new THREE.PointLight(POINT_LIGHT_COLOR,
+                                          POINT_LIGHT_INTENSITY,
+                                          0,
+                                          POINT_LIGHT_DECAY);
+    pointLight.position.set(...POINT_LIGHT_POSITION);
+    scene.add(pointLight);
+
+    let hemisphereLight = new THREE.HemisphereLight(TOP_COLOR,
+                                                    GROUND_COLOR,
+                                                    HEMISPHERE_LIGHT_INTENSITY);
+    scene.add(hemisphereLight);
 }
 
 function createWindowEdges() {
@@ -74,15 +89,15 @@ function createWindowEdges() {
 }
 
 function createParametricSurface() {
-    updateScene.oldFunction = function(x, z) {return 0};
-    updateScene.currentFunction = updateScene.oldFunction;
+    updateScene.oldFunction = updateScene.currentFunction =
+        function(x, z) {return 0};
 
     let geometry = new THREE.PlaneBufferGeometry(WINDOW_XZ_RESOLUTION);
-    geometry = new THREE.WireframeGeometry(geometry);   // temp
-    let material = new THREE.MeshBasicMaterial({
+    let material = new THREE.MeshStandardMaterial({
         color: GRAPH_COLOR
     });
-    surface = new THREE.LineSegments(geometry, material);   // temporarily using LineSegments instead of Mesh to show depth
+    material.side = THREE.DoubleSide;
+    surface = new THREE.Mesh(geometry, material);
     surface.rotation.set(-Math.PI, -Math.PI, 0);
     scene.add(surface);
 }

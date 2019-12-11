@@ -2,9 +2,18 @@ const FIELD_OF_VIEW = 90;   // in degrees
 
 const BACKGROUND_COLOR = "black";
 const AXES_COLOR = "white";
-const GRAPH_COLOR = "red";
+const GRAPH_COLOR = "white";
 
 const CAMERA_POSITION = [0, 3, 15];
+
+const POINT_LIGHT_POSITION = [10, 10, 10];
+const POINT_LIGHT_COLOR = "white";
+const POINT_LIGHT_INTENSITY = 1;
+const POINT_LIGHT_DECAY = 1;
+
+const HEMISPHERE_LIGHT_INTENSITY = 1;
+const TOP_COLOR = "red";
+const GROUND_COLOR = "blue";
 
 // width and depth of the cuboid that contains the graph
 const WINDOW_DIMENSIONS = [20, 10];
