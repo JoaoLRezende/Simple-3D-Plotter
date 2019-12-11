@@ -88,29 +88,57 @@ function createParametricSurface() {
 }
 
 function createMarkers() {
-    let markerMaterial = new THREE.LineBasicMaterial({ color: AXES_COLOR });
+    new THREE.FontLoader().load("fonts/optimer_regular.typeface.json",
+                                function(font) {
+        MARKER_NUMBER_PARAMETERS.font = font;
 
-    /* Create the x axis' markers. */
-    let xMarkerGeometry = new THREE.Geometry();
-    xMarkerGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
-                                 new THREE.Vector3(0, -MARKER_LENGTH, 0));
+        let markerMaterial = new THREE.LineBasicMaterial({ color: AXES_COLOR });
+        let numberMaterial = new THREE.MeshBasicMaterial({ color: AXES_COLOR });
 
-    let initialX = -Math.floor(WINDOW_DIMENSIONS[0]/2) + 1;
-    for (let x = initialX; x <= WINDOW_DIMENSIONS[0]/2 - 1; x += 1) {
-        let marker = new THREE.Line(xMarkerGeometry, markerMaterial);
-        marker.position.set(x, 0, WINDOW_DIMENSIONS[1]/2);
-        scene.add(marker);
-    }
+        /* Create the x axis' markers. */
+        let xMarkerGeometry = new THREE.Geometry();
+        xMarkerGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
+                                      new THREE.Vector3(0, -MARKER_LENGTH, 0));
 
-    /* Create the z axis' markers. */
-    let zMarkerGeometry = new THREE.Geometry();
-    zMarkerGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
-                                  new THREE.Vector3(0, -MARKER_LENGTH, 0));
+        let initialX = -Math.floor(WINDOW_DIMENSIONS[0]/2) + 1;
+        for (let x = initialX; x <= WINDOW_DIMENSIONS[0]/2 - 1; x += 1) {
+            let marker = new THREE.Line(xMarkerGeometry, markerMaterial);
+            marker.position.set(x, 0, WINDOW_DIMENSIONS[1]/2);
+            scene.add(marker);
 
-    let initialZ = -Math.floor(WINDOW_DIMENSIONS[1]/2) + 1;
-    for (let z = initialZ; z <= WINDOW_DIMENSIONS[1]/2 - 1; z += 1) {
-        let marker = new THREE.Line(zMarkerGeometry, markerMaterial);
-        marker.position.set(WINDOW_DIMENSIONS[0]/2, 0, z);
-        scene.add(marker);
-    }
+            let numberGeometry = new THREE.TextBufferGeometry(
+                String(x), MARKER_NUMBER_PARAMETERS
+            );
+            let number = new THREE.Mesh(numberGeometry, numberMaterial);
+            number.position.set(
+                x - MARKER_NUMBER_PARAMETERS.size/2 * 0.8,
+                -MARKER_LENGTH - MARKER_NUMBER_PARAMETERS.size,
+                WINDOW_DIMENSIONS[1]/2);
+            scene.add(number);
+        }
+
+        /* Create the z axis' markers. */
+        let zMarkerGeometry = new THREE.Geometry();
+        zMarkerGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
+                                      new THREE.Vector3(0, -MARKER_LENGTH, 0)); // TODO: this is unnecessarily duplicated.
+
+        let initialZ = -Math.floor(WINDOW_DIMENSIONS[1]/2) + 1;
+        for (let z = initialZ; z <= WINDOW_DIMENSIONS[1]/2 - 1; z += 1) {
+            let marker = new THREE.Line(zMarkerGeometry, markerMaterial);
+            marker.position.set(WINDOW_DIMENSIONS[0]/2, 0, z);
+            scene.add(marker);
+
+            let numberGeometry = new THREE.TextBufferGeometry(
+                String(z), MARKER_NUMBER_PARAMETERS
+            );
+            let number = new THREE.Mesh(numberGeometry, numberMaterial);
+            number.position.set(
+                WINDOW_DIMENSIONS[0]/2,
+                -MARKER_LENGTH - MARKER_NUMBER_PARAMETERS.size,
+                z + MARKER_NUMBER_PARAMETERS.size/2 * 0.8);
+            number.rotation.y = Math.PI / 2;
+            scene.add(number);
+        }
+        // TODO: can I safely request a new frame from here?
+    });
 }
