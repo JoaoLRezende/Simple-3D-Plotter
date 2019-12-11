@@ -139,6 +139,7 @@ function createTicks() {
             number.rotation.y = Math.PI / 2;
             scene.add(number);
         }
-        // TODO: can I safely request a new frame from here?
+        
+        requestAnimationFrame(updateScene);
     });
 }
