@@ -19,17 +19,20 @@ function updateScene(time) {
         updateScene.newFunction = null;
     }
 
+    /* During a transition, progress starts at 0 and gradually grows
+     * towards 1.
+     */
     let progress = Math.min(1, (time - updateScene.morphStartTime) / GRAPH_MORPH_TIME);
-
-    if (progress == 1) updateScene.oldFunction = (x, z, t) => 0;
 
     surface.geometry.dispose();
     let paramFunction = function(u, v, position) {
         let x = -WINDOW_DIMENSIONS[0]/2 + u*(WINDOW_DIMENSIONS[0]);
         let z = -WINDOW_DIMENSIONS[1]/2 + v*(WINDOW_DIMENSIONS[1]);
         
-        let y = (1-progress)*updateScene.oldFunction(-x, -z, time)
-                +  progress *updateScene.currentFunction(-x, -z, time);
+        let y = progress * updateScene.currentFunction(-x, -z, time);
+
+        if (progress < 1)
+            y += (1-progress)* updateScene.oldFunction(-x, -z, time);
 
         position.set(x, -y, z);
     };
