@@ -15,8 +15,8 @@ const GRAPH_MORPH_TIME = 0.8;   // in seconds
 
 const AVOID_USELESS_REDRAWING = true;   // messes up zooming but saves energy and makes my PC freeze less
 
-const MARKER_LENGTH = 0.25;
-const MARKER_NUMBER_PARAMETERS = {
+const TICK_LENGTH = 0.25;
+const TICK_LABEL_PARAMETERS = {
     size: 0.35,
     height: 0.001,
     curveSegments: 12

@@ -59,7 +59,7 @@ function init() {
 
     createWindowEdges();
     createParametricSurface();
-    createMarkers();
+    createTicks();
     drawNewFunction({target : {value: "0"}});
 }
 
@@ -87,55 +87,55 @@ function createParametricSurface() {
     scene.add(surface);
 }
 
-function createMarkers() {
+function createTicks() {
     new THREE.FontLoader().load("fonts/optimer_regular.typeface.json",
                                 function(font) {
-        MARKER_NUMBER_PARAMETERS.font = font;
+        TICK_LABEL_PARAMETERS.font = font;
 
-        let markerMaterial = new THREE.LineBasicMaterial({ color: AXES_COLOR });
-        let numberMaterial = new THREE.MeshBasicMaterial({ color: AXES_COLOR });
+        let tickMaterial = new THREE.LineBasicMaterial({ color: AXES_COLOR });
+        let labelMaterial = new THREE.MeshBasicMaterial({ color: AXES_COLOR });
 
-        /* Create the x axis' markers. */
-        let xMarkerGeometry = new THREE.Geometry();
-        xMarkerGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
-                                      new THREE.Vector3(0, -MARKER_LENGTH, 0));
+        /* Create the x axis' ticks and their labels. */
+        let xTickGeometry = new THREE.Geometry();
+        xTickGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
+                                    new THREE.Vector3(0, -TICK_LENGTH, 0));
 
         let initialX = -Math.floor(WINDOW_DIMENSIONS[0]/2) + 1;
         for (let x = initialX; x <= WINDOW_DIMENSIONS[0]/2 - 1; x += 1) {
-            let marker = new THREE.Line(xMarkerGeometry, markerMaterial);
-            marker.position.set(x, 0, WINDOW_DIMENSIONS[1]/2);
-            scene.add(marker);
+            let tick = new THREE.Line(xTickGeometry, tickMaterial);
+            tick.position.set(x, 0, WINDOW_DIMENSIONS[1]/2);
+            scene.add(tick);
 
             let numberGeometry = new THREE.TextBufferGeometry(
-                String(x), MARKER_NUMBER_PARAMETERS
+                String(x), TICK_LABEL_PARAMETERS
             );
-            let number = new THREE.Mesh(numberGeometry, numberMaterial);
+            let number = new THREE.Mesh(numberGeometry, labelMaterial);
             number.position.set(
-                x - MARKER_NUMBER_PARAMETERS.size/2 * 0.8,
-                -MARKER_LENGTH - MARKER_NUMBER_PARAMETERS.size,
+                x - TICK_LABEL_PARAMETERS.size/2 * 0.8,
+                -TICK_LENGTH - TICK_LABEL_PARAMETERS.size,
                 WINDOW_DIMENSIONS[1]/2);
             scene.add(number);
         }
 
-        /* Create the z axis' markers. */
-        let zMarkerGeometry = new THREE.Geometry();
-        zMarkerGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
-                                      new THREE.Vector3(0, -MARKER_LENGTH, 0)); // TODO: this is unnecessarily duplicated.
+        /* Create the z axis' tick and their labels. */
+        let zTickGeometry = new THREE.Geometry();
+        zTickGeometry.vertices.push(new THREE.Vector3(0, 0, 0),
+                                      new THREE.Vector3(0, -TICK_LENGTH, 0)); // TODO: this is unnecessarily duplicated.
 
         let initialZ = -Math.floor(WINDOW_DIMENSIONS[1]/2) + 1;
         for (let z = initialZ; z <= WINDOW_DIMENSIONS[1]/2 - 1; z += 1) {
-            let marker = new THREE.Line(zMarkerGeometry, markerMaterial);
-            marker.position.set(WINDOW_DIMENSIONS[0]/2, 0, z);
-            scene.add(marker);
+            let tick = new THREE.Line(zTickGeometry, tickMaterial);
+            tick.position.set(WINDOW_DIMENSIONS[0]/2, 0, z);
+            scene.add(tick);
 
             let numberGeometry = new THREE.TextBufferGeometry(
-                String(z), MARKER_NUMBER_PARAMETERS
+                String(z), TICK_LABEL_PARAMETERS
             );
-            let number = new THREE.Mesh(numberGeometry, numberMaterial);
+            let number = new THREE.Mesh(numberGeometry, labelMaterial);
             number.position.set(
                 WINDOW_DIMENSIONS[0]/2,
-                -MARKER_LENGTH - MARKER_NUMBER_PARAMETERS.size,
-                z + MARKER_NUMBER_PARAMETERS.size/2 * 0.8);
+                -TICK_LENGTH - TICK_LABEL_PARAMETERS.size,
+                z + TICK_LABEL_PARAMETERS.size/2 * 0.8);
             number.rotation.y = Math.PI / 2;
             scene.add(number);
         }
