@@ -20,7 +20,7 @@ const WINDOW_DIMENSIONS = [20, 10];
 
 const WINDOW_XZ_RESOLUTION = [100, 50];
 
-const GRAPH_MORPH_TIME = 0.8;   // in seconds
+const GRAPH_MORPH_TIME = 1.25;   // in seconds
 
 const AVOID_USELESS_REDRAWING = true;   // messes up zooming but saves energy and makes my PC freeze less
 

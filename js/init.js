@@ -63,7 +63,7 @@ function init() {
     createParametricSurface();
     createTicks();
     drawNewFunction({target : {value: "0"}});
-    if (PRESS_N_TO_CYCLE) setUpCycling();
+    if (PRESS_N_TO_CYCLE) enableFunctionCycling();
 }
 
 function createGrid() {

@@ -2,7 +2,7 @@ functions = [
     "sqrt(abs(x))*sin(5*t)*abs(x)*0.2",
     "sin(x*t*2)",
     "sin(x*t) + sin(z*t)",
-    "sin(10*((x/3)+(z/3))-2*t)/10)",
+    "sin(10*((x/3)+(z/3))-2*t)/10",
     "sin(10*((x/3)**2+(z/3)**2)-2*t)/10",
     "1/(15*((x/10)**2+(z/10)**2))+sin(10*((x/3)**2+(z/3)**2)-10*t)/10",
     "1/(15*((x/10)**2+(z/10)**2))+sin(10*((x/3)**2+(z/3)**2)+10*t)/10",
@@ -18,10 +18,10 @@ function switchToNextFunction() {
     drawNewFunction({target: {value: functionBox.value}});
 }
 
-function setUpCycling() {
+function enableFunctionCycling() {
     window.addEventListener("keydown", function (event) {
         if (event.defaultPrevented) {
-        return; // Do nothing if the event was already processed
+            return;
         }
     
         if (event.key == "n") {
